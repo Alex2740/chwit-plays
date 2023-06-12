@@ -3,4 +3,10 @@
     x: 0.0,
     y: 0.0,
     z: 0.0,
+    rotationX: 0.0,
+    rotationY: 0.0,
+    rotationZ: 0.0,
+    halfSizeX: 1.0,
+    halfSizeY: 1.0,
+    halfSizeZ: 1.0,
 }
