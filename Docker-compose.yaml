@@ -6,6 +6,8 @@ services:
       - '27017:27017'
     volumes:
       - dbdata:/data/db
+      - ./init-data:/docker-entrypoint-initdb.d
+      - ./init-data/data:/tmp/data
 
   influxdb:
     image: influxdb:latest
