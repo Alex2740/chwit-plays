@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxDB_data:/var/lib/influxdb2
+      - influxDB_config:/etc/influxdb2
+
+volumes:
+  dbdata:
+  influxDB_data:
+  influxDB_config:
