@@ -52,12 +52,6 @@ public:
 		{
 			Renderer->RenderObject(Object, *ShaderProgram);
 		}
-
-		// Swap the back buffer with the front buffer
-		glfwSwapBuffers(Window);
-
-		// Take care of all GLFW events
-		glfwPollEvents();
 	}
 };
 
@@ -136,6 +130,12 @@ int main()
 
 		Capturer->CaptureFrame();
 		//Capturer->DrawFrame();
+
+		// Swap the back buffer with the front buffer
+		glfwSwapBuffers(Window);
+
+		// Take care of all GLFW events
+		glfwPollEvents();
 	}
 
 	// Delete all the objects we've created
