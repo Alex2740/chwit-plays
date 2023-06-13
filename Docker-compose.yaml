@@ -30,6 +30,17 @@ services:
     networks:
       - application
 
+  web:
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
+    volumes:
+      - ./web/:/www/
+    ports:
+      - 5050:5050
+    networks:
+      - application
+
 
 volumes:
   dbdata:
