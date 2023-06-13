@@ -21,6 +21,16 @@ services:
     networks:
       - application
 
+  broadcaster:
+    build: ./broadcaster/
+    volumes: 
+      - ./broadcaster/:/app/
+    ports: 
+      - 5000:5000
+    networks:
+      - application
+
+
 volumes:
   dbdata:
   influxDB_data:
