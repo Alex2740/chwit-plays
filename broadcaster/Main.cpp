@@ -5,15 +5,15 @@
 #include <glm/glm.hpp>
 #include <list>
 
-#include "Graphics/Texture.h"
-#include "Graphics/shaderClass.h"
-#include "Graphics/Camera.h"
-#include "Graphics/Renderer.h"
+#include "graphics/texture.h"
+#include "graphics/shaderClass.h"
+#include "graphics/camera.h"
+#include "graphics/renderer.h"
 
-#include "Objects/Object.h"
-#include "Objects/Cube.h"
+#include "objects/object.h"
+#include "objects/cube.h"
 
-#include "Capture/Capturer.h"
+#include "capture/capturer.h"
 
 
 const unsigned int Width = 800;

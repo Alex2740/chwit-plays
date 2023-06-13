@@ -1,4 +1,4 @@
-#include "Cube.h"
+#include "objects/cube.h"
 
 
 Cube::Cube(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ, float HalfSizeX, float HalfSizeY, float HalfSizeZ) :

@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <opencv2/opencv.hpp>
 
-#include "../Graphics/shaderClass.h"
-#include "../Graphics/Renderer.h"
-#include "../Graphics/Camera.h"
+#include "graphics/shaderClass.h"
+#include "graphics/renderer.h"
+#include "graphics/camera.h"
 
 namespace Capture
 {

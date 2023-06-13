@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "objects/object.h"
 
 
 Object::Object(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ) :

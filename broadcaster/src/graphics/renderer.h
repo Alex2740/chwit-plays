@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Texture.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
+#include "graphics/texture.h"
+#include "graphics/VAO.h"
+#include "graphics/VBO.h"
+#include "graphics/EBO.h"
 
-#include "../Objects/Object.h"
-#include "../Objects/Cube.h"
+#include "objects/object.h"
+#include "objects/cube.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
