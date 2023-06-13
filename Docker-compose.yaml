@@ -8,6 +8,8 @@ services:
       - dbdata:/data/db
       - ./init-data:/docker-entrypoint-initdb.d
       - ./init-data/data:/tmp/data
+    networks:
+      - application
 
   influxdb:
     image: influxdb:latest
@@ -16,8 +18,14 @@ services:
     volumes:
       - influxDB_data:/var/lib/influxdb2
       - influxDB_config:/etc/influxdb2
+    networks:
+      - application
 
 volumes:
   dbdata:
   influxDB_data:
   influxDB_config:
+
+
+networks:
+  application:
