@@ -2,7 +2,6 @@
 function getValue() {
     // Sélectionner l'élément input et récupérer sa valeur
     var input = document.getElementById("in").value;
-    alert(input);
 
     let url = "http://localhost:5000/inputs/0/";
     url = url.concat(input);

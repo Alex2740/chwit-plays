@@ -1,1 +1,3 @@
-FROM alpine:latest
+FROM nginx
+
+COPY . /usr/share/nginx/html
