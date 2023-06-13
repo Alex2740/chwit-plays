@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+      - ./init-data:/docker-entrypoint-initdb.d
+      - ./init-data/data:/tmp/data
+    networks:
+      - application
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxDB_data:/var/lib/influxdb2
+      - influxDB_config:/etc/influxdb2
+    networks:
+      - application
+
+volumes:
+  dbdata:
+  influxDB_data:
+  influxDB_config:
+
+
+networks:
+  application:
