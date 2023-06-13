@@ -10,7 +10,7 @@ Capture::Capturer::Capturer(int Height, int Width, int Fps)
 	this->Texture;
 	
 	// Create video where images will be saved
-	Video = cv::VideoWriter("output.avi", cv::VideoWriter::fourcc('X', 'V', 'I', 'D'), Fps, cv::Size(Width, Height));
+	Video = cv::VideoWriter("output.avi", cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), Fps, cv::Size(Width, Height));
 
 	Init();
 }
@@ -74,4 +74,9 @@ void Capture::Capturer::CaptureFrame()
 
 	// Écrire l'image dans la vidéo
 	Video.write(image);
+}
+
+void Capture::Capturer::Delete()
+{
+	Video.release();
 }

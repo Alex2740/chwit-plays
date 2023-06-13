@@ -144,6 +144,7 @@ int main()
 	Renderer->Delete();
 	brickTex.Delete();
 	ShaderProgram->Delete();
+	Capturer->Delete();
 
 	// Delete window before ending the program
 	glfwDestroyWindow(Window);

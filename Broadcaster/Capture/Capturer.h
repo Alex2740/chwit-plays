@@ -35,5 +35,7 @@ namespace Capture
 		void CaptureFrame();
 
 		void virtual DrawFrame() = 0;
+
+		void Delete();
 	};
 }
