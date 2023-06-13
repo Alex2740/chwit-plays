@@ -1,6 +1,6 @@
 #include "capture/capturer.h"
 
-Capture::Capturer::Capturer(int Height, int Width, int Fps)
+Capture::Capturer::Capturer(int Height, int Width, int Fps, int MaxFrame)
 {
 	this->Height = Height;
 	this->Width = Width;
@@ -8,6 +8,7 @@ Capture::Capturer::Capturer(int Height, int Width, int Fps)
 	this->FrameBuffer = new uint8_t[Width * Height * 3];
 	this->FBO;
 	this->Texture;
+	this->MaxFrame = MaxFrame;
 	
 	// Create video where images will be saved
 	Video = cv::VideoWriter("output.avi", cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), Fps, cv::Size(Width, Height));
@@ -53,6 +54,8 @@ void Capture::Capturer::CaptureFrame()
 {
 	if (++FrameId % 100 == 0)
 		std::cerr << "frame " << FrameId << std::endl;
+
+	if (MaxFrame >= 0 && FrameId >= MaxFrame) HasReachMaxFrame = true;
 
 	// Attacher le FBO
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);

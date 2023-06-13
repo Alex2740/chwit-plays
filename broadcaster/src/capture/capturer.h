@@ -22,6 +22,7 @@ namespace Capture
 
 		int Fps;
 		int FrameId = 0;
+		int MaxFrame;
 
 		uint8_t* FrameBuffer;
 
@@ -30,7 +31,9 @@ namespace Capture
 		void Init();
 
 	public:
-		Capturer(int Height, int Width, int Fps);
+		bool HasReachMaxFrame = false;
+
+		Capturer(int Height, int Width, int Fps, int MaxFrame);
 
 		void CaptureFrame();
 

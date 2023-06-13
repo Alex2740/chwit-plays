@@ -15,11 +15,13 @@
 
 #include "capture/capturer.h"
 
+const float MaxVideoLength = 1;
 
 const unsigned int Width = 800;
 const unsigned int Height = 800;
 const int Fps = 25;
 
+int MaxFrame = MaxVideoLength * 60 * Fps;
 bool VideoHasFinish = false;
 
 const std::string cameraId;
@@ -34,7 +36,7 @@ Graphics::Camera* Camera;
 class MyCapturer : public Capture::Capturer
 {
 public:
-	MyCapturer(int Height, int Width, int Fps) : Capturer(Height, Width, Fps) {};
+	MyCapturer(int Height, int Width, int Fps, int MaxFrame) : Capturer(Height, Width, Fps, MaxFrame) {};
 
 	void DrawFrame() override
 	{
@@ -122,7 +124,7 @@ int main()
 	// Creates camera object
 	Camera = new Graphics::Camera(Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));
 
-	Capturer = new MyCapturer(Height, Width, Fps);
+	Capturer = new MyCapturer(Height, Width, Fps, MaxFrame);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(Window) && !VideoHasFinish)
@@ -132,6 +134,8 @@ int main()
 
 		Capturer->CaptureFrame();
 		//Capturer->DrawFrame();
+
+		if (Capturer->HasReachMaxFrame) VideoHasFinish = true;
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(Window);
