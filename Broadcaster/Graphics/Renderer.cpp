@@ -83,7 +83,7 @@ void Graphics::Renderer::RenderCube(Cube* Cube, Shader ShaderProgram)
 	VertexArrayObject.LinkAttrib(VBO, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	glm::mat4 Model = glm::mat4(1.0f);
-	glm::vec3 tmp(Cube->X, Cube->Y, Cube->Y);
+	glm::vec3 tmp(Cube->X, Cube->Y, Cube->Z);
 	Model = glm::translate(Model, tmp);
 	glm::vec3 Rotation(Cube->RotationX, Cube->RotationY, Cube->RotationZ);
 

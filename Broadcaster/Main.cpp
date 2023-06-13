@@ -37,7 +37,7 @@ public:
 	void DrawFrame() override
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.17f, 0.13f, 0.07f, 1.0f);
 
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -119,12 +119,12 @@ int main()
 	Objects.push_back(&MyCube1);
 	Renderer->BindTexture(&MyCube1, &brickTex);
 
-	Cube MyCube2 = Cube(5, 5, 5, 0, 0, 0, 2, 2, 2);
+	Cube MyCube2 = Cube(0, -1, 0, 0, 0, 0, 3, 1, 1);
 	Objects.push_back(&MyCube2);
 	Renderer->BindTexture(&MyCube2, &brickTex);
 
 	// Creates camera object
-	Camera = new Graphics::Camera(Width, Height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera = new Graphics::Camera(Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));
 
 	Capturer = new MyCapturer(Height, Width, Fps);
 
@@ -135,6 +135,7 @@ int main()
 		Camera->Inputs(Window);
 
 		Capturer->CaptureFrame();
+		//Capturer->DrawFrame();
 	}
 
 	// Delete all the objects we've created
