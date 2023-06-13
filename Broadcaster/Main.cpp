@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
+#include <list>
 
 #include "Graphics/Texture.h"
 #include "Graphics/shaderClass.h"
@@ -12,18 +13,19 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Renderer.h"
 
+#include "Objects/Object.h"
 #include "Objects/Cube.h"
 
 
 const unsigned int width = 800;
 const unsigned int height = 800;
 
+const std::string cameraId;
+std::list<Object*> Objects = std::list<Object*>();
+
 
 int main()
 {
-	Cube MyCube1 = Cube(0, 0, 0, 0, 0, 0, 1, 1, 1);
-	Cube MyCube2 = Cube(5, 5, 5, 0, 0, 0, 2, 2, 2);
-
 	// Initialize GLFW
 	glfwInit();
 
@@ -68,12 +70,17 @@ int main()
 	Graphics::Texture brickTex("Resources/Textures/brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	brickTex.texUnit(ShaderProgram, "tex0", 0);
 
-	// Bind Texture to Object
-	Renderer.BindTexture(&MyCube1, &brickTex);
-	Renderer.BindTexture(&MyCube2, &brickTex);
-
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
+
+	// Create Object from db and bind texture
+	Cube MyCube1 = Cube(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	Objects.push_back(&MyCube1);
+	Renderer.BindTexture(&MyCube1, &brickTex);
+
+	Cube MyCube2 = Cube(5, 5, 5, 0, 0, 0, 2, 2, 2);
+	Objects.push_back(&MyCube2);
+	Renderer.BindTexture(&MyCube2, &brickTex);
 
 	// Creates camera object
 	Graphics::Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
@@ -96,8 +103,10 @@ int main()
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.Matrix(45.0f, 0.1f, 100.0f, ShaderProgram, "camMatrix");
 
-		Renderer.RenderObject(&MyCube1, ShaderProgram);
-		Renderer.RenderObject(&MyCube2, ShaderProgram);
+		for (auto Object : Objects)
+		{
+			Renderer.RenderObject(Object, ShaderProgram);
+		}
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
