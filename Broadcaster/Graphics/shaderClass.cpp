@@ -19,6 +19,11 @@ std::string get_file_contents(const char* filename)
 }
 
 
+Graphics::Shader::Shader()
+{
+}
+
+
 // Constructor that build the Shader Program from 2 different shaders
 Graphics::Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {

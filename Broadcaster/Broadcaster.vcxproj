@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="api.cpp" />
+    <ClCompile Include="Capture\Capturer.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Graphics\Camera.cpp" />
     <ClCompile Include="Graphics\EBO.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="api.h" />
+    <ClInclude Include="Capture\Capturer.h" />
     <ClInclude Include="Graphics\Camera.h" />
     <ClInclude Include="Graphics\EBO.h" />
     <ClInclude Include="Graphics\Renderer.h" />

@@ -33,6 +33,8 @@ namespace Graphics
 		float speed = 0.1f;
 		float sensitivity = 100.0f;
 
+		Camera();
+
 		// Camera constructor to set up initial values
 		Camera(int width, int height, glm::vec3 position);
 

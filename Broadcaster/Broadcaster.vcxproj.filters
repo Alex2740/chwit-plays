@@ -19,6 +19,24 @@
     <Filter Include="Fichiers de ressources\Textures">
       <UniqueIdentifier>{20f08de6-3170-4056-805f-945da962086f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Graphics">
+      <UniqueIdentifier>{aa91de3d-1807-4626-9db9-b87825bf193a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Objects">
+      <UniqueIdentifier>{2c41c580-1f73-48de-be52-15933acc1160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Graphics">
+      <UniqueIdentifier>{26765896-ec59-43d1-a1cf-fe3f05f2093b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Objects">
+      <UniqueIdentifier>{725dd1c1-898b-48cb-a3a0-e33a1306f685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Capture">
+      <UniqueIdentifier>{601d1651-0c19-4a6e-93c1-3a29a70404ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Capture">
+      <UniqueIdentifier>{195fa3d1-021f-4bb3-8e1b-be4de86d3145}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -34,31 +52,34 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Camera.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\EBO.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\shaderClass.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Texture.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\VAO.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\VBO.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Renderer.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\shaderClass.cpp">
+      <Filter>Fichiers sources\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VBO.cpp">
+      <Filter>Fichiers sources\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VAO.cpp">
+      <Filter>Fichiers sources\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Texture.cpp">
+      <Filter>Fichiers sources\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Cube.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Object.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Capture\Capturer.cpp">
+      <Filter>Fichiers sources\Capture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,31 +87,34 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Camera.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\EBO.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\shaderClass.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Texture.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\VAO.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\VBO.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Renderer.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Object.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Graphics\Texture.h">
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\shaderClass.h">
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VAO.h">
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VBO.h">
+      <Filter>Fichiers d%27en-tête\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Cube.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Object.h">
+      <Filter>Fichiers d%27en-tête\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Capture\Capturer.h">
+      <Filter>Fichiers d%27en-tête\Capture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

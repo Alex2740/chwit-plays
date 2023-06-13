@@ -106,6 +106,7 @@ void Graphics::Renderer::RenderCube(Cube* Cube, Shader ShaderProgram)
 	EBO.Delete();
 }
 
+
 Graphics::Renderer::Renderer()
 {
 	// Generates Vertex Array Object and binds it
@@ -123,6 +124,7 @@ void Graphics::Renderer::Delete()
 	VertexArrayObject.Delete();
 }
 
+
 void Graphics::Renderer::RenderObject(Object* Object, Shader ShaderProgram)
 {
 	switch (Object->GetType())
@@ -134,6 +136,7 @@ void Graphics::Renderer::RenderObject(Object* Object, Shader ShaderProgram)
 		break;
 	}
 }
+
 
 void Graphics::Renderer::BindTexture(Object* Object, Texture* Texture)
 {

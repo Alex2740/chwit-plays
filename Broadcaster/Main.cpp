@@ -7,21 +7,62 @@
 
 #include "Graphics/Texture.h"
 #include "Graphics/shaderClass.h"
-#include "Graphics/VAO.h"
-#include "Graphics/VBO.h"
-#include "Graphics/EBO.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Renderer.h"
 
 #include "Objects/Object.h"
 #include "Objects/Cube.h"
 
+#include "Capture/Capturer.h"
 
-const unsigned int width = 800;
-const unsigned int height = 800;
+
+const unsigned int Width = 800;
+const unsigned int Height = 800;
+const int Fps = 25;
 
 const std::string cameraId;
 std::list<Object*> Objects = std::list<Object*>();
+
+GLFWwindow* Window;
+Graphics::Shader* ShaderProgram;
+Graphics::Renderer* Renderer;
+Graphics::Camera* Camera;
+
+
+class MyCapturer : public Capture::Capturer
+{
+public:
+	MyCapturer(int Height, int Width, int Fps) : Capturer(Height, Width, Fps) {};
+
+	void DrawFrame() override
+	{
+		// Specify the color of the background
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+
+		// Clean the back buffer and depth buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Tell OpenGL which Shader Program we want to use
+		ShaderProgram->Activate();
+
+		// Updates and exports the camera matrix to the Vertex Shader
+		Camera->Matrix(45.0f, 0.1f, 100.0f, *ShaderProgram, "camMatrix");
+
+		for (auto Object : Objects)
+		{
+			Renderer->RenderObject(Object, *ShaderProgram);
+		}
+
+		// Swap the back buffer with the front buffer
+		glfwSwapBuffers(Window);
+
+		// Take care of all GLFW events
+		glfwPollEvents();
+	}
+};
+
+
+MyCapturer* Capturer;
 
 
 int main()
@@ -39,36 +80,36 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create a GLFWwindow object of 800 by 800 pixels, naming it "OpenGL"
-	GLFWwindow* window = glfwCreateWindow(width, height, "OpenGL", NULL, NULL);
+	Window = glfwCreateWindow(Width, Height, "OpenGL", NULL, NULL);
 
 	// Error check if the window fails to create
-	if (window == NULL)
+	if (Window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
 	// Introduce the window into the current context
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(Window);
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
 
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, Width, Height);
 
 	// Generates Shader object using shaders default.vert and default.frag
-	Graphics::Shader ShaderProgram("Resources/Shaders/default.vert", "Resources/Shaders/default.frag");
+	ShaderProgram = new Graphics::Shader("Resources/Shaders/default.vert", "Resources/Shaders/default.frag");
 	glm::mat4 Model = glm::identity<glm::mat4>();
-	ShaderProgram.setMat4("model", Model);
+	ShaderProgram->setMat4("model", Model);
 
 	// Create the Renderer
-	Graphics::Renderer Renderer = Graphics::Renderer();
+	Renderer = new Graphics::Renderer();
 
 	// Create the Texture
 	Graphics::Texture brickTex("Resources/Textures/brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	brickTex.texUnit(ShaderProgram, "tex0", 0);
+	brickTex.texUnit(*ShaderProgram, "tex0", 0);
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
@@ -76,52 +117,33 @@ int main()
 	// Create Object from db and bind texture
 	Cube MyCube1 = Cube(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	Objects.push_back(&MyCube1);
-	Renderer.BindTexture(&MyCube1, &brickTex);
+	Renderer->BindTexture(&MyCube1, &brickTex);
 
 	Cube MyCube2 = Cube(5, 5, 5, 0, 0, 0, 2, 2, 2);
 	Objects.push_back(&MyCube2);
-	Renderer.BindTexture(&MyCube2, &brickTex);
+	Renderer->BindTexture(&MyCube2, &brickTex);
 
 	// Creates camera object
-	Graphics::Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera = new Graphics::Camera(Width, Height, glm::vec3(0.0f, 0.0f, 2.0f));
+
+	Capturer = new MyCapturer(Height, Width, Fps);
 
 	// Main while loop
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(Window))
 	{
-		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-
-		// Clean the back buffer and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// Tell OpenGL which Shader Program we want to use
-		ShaderProgram.Activate();
-
 		// Handles camera inputs
-		camera.Inputs(window);
+		Camera->Inputs(Window);
 
-		// Updates and exports the camera matrix to the Vertex Shader
-		camera.Matrix(45.0f, 0.1f, 100.0f, ShaderProgram, "camMatrix");
-
-		for (auto Object : Objects)
-		{
-			Renderer.RenderObject(Object, ShaderProgram);
-		}
-
-		// Swap the back buffer with the front buffer
-		glfwSwapBuffers(window);
-
-		// Take care of all GLFW events
-		glfwPollEvents();
+		Capturer->CaptureFrame();
 	}
 
 	// Delete all the objects we've created
-	Renderer.Delete();
+	Renderer->Delete();
 	brickTex.Delete();
-	ShaderProgram.Delete();
+	ShaderProgram->Delete();
 
 	// Delete window before ending the program
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(Window);
 
 	// Terminate GLFW before ending the program
 	glfwTerminate();
