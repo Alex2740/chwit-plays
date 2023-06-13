@@ -22,7 +22,9 @@ services:
       - application
 
   broadcaster:
-    build: ./broadcaster/
+    build:
+      context: ./broadcaster
+      dockerfile: Dockerfile
     volumes: 
       - ./broadcaster/:/app/
     ports: 
