@@ -20,6 +20,8 @@ const unsigned int Width = 800;
 const unsigned int Height = 800;
 const int Fps = 25;
 
+bool VideoHasFinish = false;
+
 const std::string cameraId;
 std::list<Object*> Objects = std::list<Object*>();
 
@@ -123,10 +125,10 @@ int main()
 	Capturer = new MyCapturer(Height, Width, Fps);
 
 	// Main while loop
-	while (!glfwWindowShouldClose(Window))
+	while (!glfwWindowShouldClose(Window) && !VideoHasFinish)
 	{
 		// Handles camera inputs
-		Camera->Inputs(Window);
+		VideoHasFinish = Camera->Inputs(Window);
 
 		Capturer->CaptureFrame();
 		//Capturer->DrawFrame();

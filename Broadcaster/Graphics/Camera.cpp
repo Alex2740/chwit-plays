@@ -33,9 +33,15 @@ void Graphics::Camera::Matrix(float FOVdeg, float nearPlane, float farPlane, Sha
 }
 
 
-void Graphics::Camera::Inputs(GLFWwindow* window)
+bool Graphics::Camera::Inputs(GLFWwindow* window)
 {
+	bool WantToQuit = false;
+	
 	// Handles key inputs
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		WantToQuit = true;
+	}
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		Position += speed * Orientation;
@@ -116,4 +122,6 @@ void Graphics::Camera::Inputs(GLFWwindow* window)
 		// Makes sure the next time the camera looks around it doesn't jump
 		firstClick = true;
 	}
+
+	return WantToQuit;
 }
