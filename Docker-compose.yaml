@@ -25,14 +25,24 @@ services:
     build:
       context: ./broadcaster
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - 5000:5000
       - 80:80
     networks:
       - application
 
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+
+    ports:
+      - 4000:4000
+    networks:
+      - application
+
   web:
-    build: 
+    build:
       context: ./web
       dockerfile: Dockerfile
     volumes:
@@ -41,7 +51,6 @@ services:
       - 8051:80
     networks:
       - application
-
 
 volumes:
   dbdata:
