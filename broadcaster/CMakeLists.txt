@@ -4,12 +4,16 @@
 cmake_minimum_required (VERSION 3.8)
 project (broadcaster VERSION 0.1.0)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 find_package(OpenGL REQUIRED)
+
+find_package(glfw3 REQUIRED)
 
 set(GRAPHICS
     ./src/graphics/glad.c
@@ -38,9 +42,19 @@ set(CAPTURE
 
 add_executable(broadcaster "main.cpp" ${GRAPHICS} ${OBJECTS} ${CAPTURE})
 target_include_directories(broadcaster PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/include)
-target_link_directories(broadcaster PUBLIC ${CMAKE_SOURCE_DIR}/lib)
-target_link_libraries(broadcaster PRIVATE opengl32.lib glfw3.lib ${OpenCV_LIBS})
+link_directories(broadcaster PUBLIC ${CMAKE_SOURCE_DIR}/lib)
 target_compile_features(broadcaster PRIVATE cxx_std_17)
+
+if(CMAKE_SYSTEM MATCHES Windows)
+   target_link_libraries(broadcaster PUBLIC glfw3.lib ${OpenCV_LIBS} ${CMAKE_DL_LIBS})
+endif()
+
+if(CMAKE_HOST_SYSTEM MATCHES Linux)
+   target_link_libraries(broadcaster PUBLIC glfw ${OpenCV_LIBS} ${CMAKE_DL_LIBS})
+endif()
+
+
+
 
 add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory
