@@ -15,6 +15,7 @@
 
 #include "capture/capturer.h"
 
+
 const float MaxVideoLength = 1;
 
 const unsigned int Width = 800;
@@ -87,6 +88,7 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+
 	// Introduce the window into the current context
 	glfwMakeContextCurrent(Window);
 
@@ -96,9 +98,9 @@ int main()
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, Width, Height);
-
+	
 	// Generates Shader object using shaders default.vert and default.frag
-	ShaderProgram = new Graphics::Shader("Resources/Shaders/default.vert", "Resources/Shaders/default.frag");
+	ShaderProgram = new Graphics::Shader("resources/shaders/default.vert", "resources/shaders/default.frag");
 	glm::mat4 Model = glm::identity<glm::mat4>();
 	ShaderProgram->setMat4("model", Model);
 
@@ -127,11 +129,11 @@ int main()
 	Capturer = new MyCapturer(Height, Width, Fps, MaxFrame);
 
 	// Main while loop
-	while (!glfwWindowShouldClose(Window) && !VideoHasFinish)
+	while (!VideoHasFinish && !glfwWindowShouldClose(Window))
 	{
 		// Handles camera inputs
 		VideoHasFinish = Camera->Inputs(Window);
-
+		
 		Capturer->CaptureFrame();
 		//Capturer->DrawFrame();
 

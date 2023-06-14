@@ -1,56 +1,49 @@
-FROM alpine:3.17.0 AS build
+# Utilisez une image de base avec les dépendances de base pour OpenGL
+FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 
-RUN apk add --update --no-cache \
-      build-base \
-      openblas-dev \
-      unzip \
-      wget \
-      cmake \
-      g++ \
-      libjpeg  \
-      libjpeg-turbo-dev \
-      libpng-dev \
-      jasper-dev \
-      tiff-dev \
-      libwebp-dev \
-      clang-dev \
-      linux-headers
+# Installe les dépendances système nécessaires pour OpenCV et FFmpeg
+RUN apt-get update && apt-get install -y \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libglfw3 \
+    libglfw3-dev \
+    ffmpeg
 
-ENV CC /usr/bin/clang
-ENV CXX /usr/bin/g++
+# Installe OpenCV à partir des sources
+RUN apt-get install -y \
+    build-essential \
+    cmake \
+    libgtk2.0-dev \
+    pkg-config \
+    libavcodec-dev \
+    libavformat-dev \
+    libswscale-dev \
+    python3-dev \
+    python3-numpy \
+    libtbb2 \
+    libtbb-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libv4l-dev \
+    libdc1394-22-dev
+
 ENV OPENCV_VERSION='4.7.0' DEBIAN_FRONTEND=noninteractive
 
 COPY sources/opencv/ /opt/opencv-${OPENCV_VERSION}
 
-RUN mkdir -p /opt/opencv-${OPENCV_VERSION}/build && \
-  cd /opt/opencv-${OPENCV_VERSION}/build && \
-  cmake \
-    -D BUILD_DOCS=OFF \
-    -D BUILD_EXAMPLES=OFF \
-    -D BUILD_opencv_apps=OFF \
-    -D BUILD_opencv_python2=OFF \
-    -D BUILD_opencv_python3=OFF \
-    -D BUILD_PERF_TESTS=OFF \
-    -D BUILD_SHARED_LIBS=OFF \ 
-    -D BUILD_TESTS=OFF \
-    -D CMAKE_BUILD_TYPE=RELEASE \
-    -D ENABLE_PRECOMPILED_HEADERS=OFF \
-    -D FORCE_VTK=OFF \
-    -D WITH_FFMPEG=OFF \
-    -D WITH_GDAL=OFF \ 
-    -D WITH_IPP=OFF \
-    -D WITH_OPENEXR=OFF \
-    -D WITH_OPENGL=OFF \ 
-    -D WITH_QT=OFF \
-    -D WITH_TBB=OFF \ 
-    -D WITH_XINE=OFF \ 
-    -D BUILD_JPEG=ON  \
-    -D BUILD_TIFF=ON \
-    -D BUILD_PNG=ON \
-  .. && \
-  make -j$(nproc) && \
-  make install && \
-  rm -rf /opt/opencv-${OPENCV_VERSION}
+RUN cd /opt/opencv-${OPENCV_VERSION} && \
+    mkdir build && \
+    cd build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
+    make -j$(nproc) && \
+    make install
+
+# Définir la variable d'environnement pour OpenCV
+ENV OPENCV_PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/opencv4.pc
 
 WORKDIR /broadcaster
 
@@ -64,6 +57,6 @@ COPY main.cpp .
 WORKDIR /broadcaster/out
 
 RUN cmake -DCMAKE_BUILD_TYPE=Release .. && \
-    cmake --build . --parallel 8
+    cmake --build .
 
 CMD [ "tail", "-f", "/dev/null" ]
