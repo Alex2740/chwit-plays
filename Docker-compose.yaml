@@ -20,16 +20,22 @@ services:
       - influxDB_config:/etc/influxdb2
     networks:
       - application
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=Theo
+      - DOCKER_INFLUXDB_INIT_PASSWORD=12345678
+      - DOCKER_INFLUXDB_INIT_ORG=HSGames
+      - DOCKER_INFLUXDB_INIT_BUCKET=Inputs
 
-  broadcaster:
-    build:
-      context: ./broadcaster
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-      - 80:80
-    networks:
-      - application
+  #broadcaster:
+  #  build:
+  #    context: ./broadcaster
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - 5000:5000
+  #    - 80:80
+  #  networks:
+  #    - application
 
   api:
     build:
@@ -40,6 +46,9 @@ services:
       - 4000:4000
     networks:
       - application
+    depends_on:
+      - mongodb
+      - influxdb
 
   web:
     build:
