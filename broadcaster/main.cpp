@@ -18,7 +18,7 @@
 #include "api/api.h"
 
 
-const float MaxVideoLength = 1;
+const float MaxVideoLength = -1;
 
 const unsigned int Width = 800;
 const unsigned int Height = 800;
@@ -44,7 +44,7 @@ public:
 	void DrawFrame() override
 	{
 		// Specify the color of the background
-		glClearColor(0.17f, 0.13f, 0.07f, 1.0f);
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -116,15 +116,6 @@ int main()
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
-
-	// Create Object from db and bind texture
-	Cube MyCube1 = Cube(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-	Objects[0] = &MyCube1;
-	Renderer->BindTexture(&MyCube1, &brickTex);
-
-	Cube MyCube2 = Cube(glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(3, 1, 1));
-	Objects[1] = & MyCube2;
-	Renderer->BindTexture(&MyCube2, &brickTex);
 
 	// Creates camera object
 	Camera = new Graphics::Camera(0, Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));

@@ -18,11 +18,11 @@ Capture::Capturer::Capturer(int Height, int Width, int Fps, int MaxFrame)
 
 void Capture::Capturer::Init()
 {
-	// Créer le FBO
+	// Crï¿½er le FBO
 	glGenFramebuffers(1, &FBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-	// Créer la texture attachée au FBO
+	// Crï¿½er la texture attachï¿½e au FBO
 	glGenTextures(1, &Texture);
 	glBindTexture(GL_TEXTURE_2D, Texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
@@ -39,14 +39,14 @@ void Capture::Capturer::Init()
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Width, Height);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
 
-	// Vérifier l'état du FBO
+	// Vï¿½rifier l'ï¿½tat du FBO
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cerr << "Erreur lors de la création du FBO" << std::endl;
-		// Gérer l'erreur ici
+		std::cerr << "Erreur lors de la crï¿½ation du FBO" << std::endl;
+		// Gï¿½rer l'erreur ici
 	}
 
-	// Détacher le FBO
+	// Dï¿½tacher le FBO
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -65,18 +65,30 @@ void Capture::Capturer::CaptureFrame()
 	DrawFrame();
 	glFlush();
 
-	// Lire les données de la texture attachée au FBO
+	// Lire les donnï¿½es de la texture attachï¿½e au FBO
 	glBindTexture(GL_TEXTURE_2D, Texture);
 	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, FrameBuffer);
+	//glReadPixels(0, 0, Width, Height, GL_RGB, GL_UNSIGNED_BYTE, )
 
 	// Convertir le tableau framebuffer en une image OpenCV
 	cv::Mat image(Height, Width, CV_8UC3, FrameBuffer);
 
-	// Détacher le FBO
+	// Dï¿½tacher le FBO
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	// Écrire l'image dans la vidéo
-	Video.write(image);
+	// ï¿½crire l'image dans la vidï¿½o
+	//Video.write(image);
+
+	//output.write(reinterpret_cast<char*>(FrameBuffer));
+
+	//std::fwrite(image.data, 1, image.size, stdout);
+	//std::fflush(stdout);
+
+	fwrite(FrameBuffer, Width*Height*3, 1, stdout);
+	fflush(stdout);
+
+	//std::string out((char*)image.data, image.total() * image.elemSize());
+	//std::cout << out;
 }
 
 void Capture::Capturer::Delete()

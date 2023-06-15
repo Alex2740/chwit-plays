@@ -3,11 +3,11 @@
 
 void API::Api::UpdateObjects(Graphics::Camera* Camera, std::array<Object*, 10> Objects, Graphics::Renderer* Renderer, Graphics::Texture* Texture)
 {
-    cpr::Response r = cpr::Get(cpr::Url{"http://api/scene/0"});
+    cpr::Response r = cpr::Get(cpr::Url{"http://localhost:4000/scene/0"});
     json data = json::parse(r.text);
 
-    json cameraPosition = data["Camera"][Camera->ID]["Position"];
-    json cameraOrientation = data["Camera"][Camera->ID]["Orientation"];
+    json cameraPosition = data["Cameras"][0]["Position"];
+    json cameraOrientation = data["Cameras"][0]["Orientation"];
 
     Camera->SetPositionOrientation(
         glm::vec3(cameraPosition["x"], cameraPosition["y"], cameraPosition["z"]),

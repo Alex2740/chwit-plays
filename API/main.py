@@ -10,6 +10,7 @@ from pymongo import mongo_client
 import json
 from bson import ObjectId, json_util
 from load_dotenv import  load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 
 load_dotenv()
@@ -25,6 +26,11 @@ pwd = os.environ.get("influx_pwd")
 app = FastAPI()
 client = InfluxDBClient(url=url,username=usr, password=pwd,ssl=True,verify_ssl=True,org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"]
+)
 
 #Connexion à la base MongoDB
 

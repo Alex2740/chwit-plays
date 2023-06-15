@@ -36,16 +36,6 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=HSGames
       - DOCKER_INFLUXDB_INIT_BUCKET=Inputs
 
-  broadcaster:
-    build:
-      context: ./broadcaster
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-      - 80:80
-    networks:
-      - application
-
   api:
     build:
       context: ./API
