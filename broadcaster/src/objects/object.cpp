@@ -1,10 +1,16 @@
 #include "objects/object.h"
 
 
-Object::Object(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ) :
-	X(X), Y(Y), Z(Z), RotationX(0), RotationY(0), RotationZ(0)
+Object::Object(glm::vec3 Position, glm::vec3 Orientation) :
+	Position(Position), Orientation(Orientation)
 {
 	this->Id = CompterId++;
+}
+
+void Object::SetPositionOrientation(glm::vec3 Position, glm::vec3 Orientation)
+{
+	this->Position = Position;
+	this->Orientation = Orientation;
 }
 
 int Object::CompterId = 0;

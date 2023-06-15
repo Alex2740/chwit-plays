@@ -3,6 +3,12 @@
 #
 cmake_minimum_required (VERSION 3.8)
 project (broadcaster VERSION 0.1.0)
+set(CMAKE_CXX_STANDARD 17)
+
+if(WIN32) # Install dlls in the same directory as the executable on Windows
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -14,6 +20,11 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(OpenGL REQUIRED)
 
 find_package(glfw3 REQUIRED)
+
+include(FetchContent)
+FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+                         GIT_TAG 340acc5cdad624b9398827eec2832fe2fd05f966) # The commit hash for 1.9.0. Replace with the latest from: https://github.com/libcpr/cpr/releases
+FetchContent_MakeAvailable(cpr)
 
 set(GRAPHICS
     ./src/graphics/glad.c
@@ -40,21 +51,22 @@ set(CAPTURE
     ./src/capture/capturer.cpp ./src/capture/capturer.h
 )
 
-add_executable(broadcaster "main.cpp" ${GRAPHICS} ${OBJECTS} ${CAPTURE})
+set(API
+    ./src/api/api.cpp ./src/api/api.h
+    ./src/api/json.hpp
+)
+
+add_executable(broadcaster "main.cpp" ${GRAPHICS} ${OBJECTS} ${CAPTURE} ${API})
 target_include_directories(broadcaster PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/include)
 link_directories(broadcaster PUBLIC ${CMAKE_SOURCE_DIR}/lib)
-target_compile_features(broadcaster PRIVATE cxx_std_17)
 
 if(CMAKE_SYSTEM MATCHES Windows)
-   target_link_libraries(broadcaster PUBLIC glfw3.lib ${OpenCV_LIBS} ${CMAKE_DL_LIBS})
+   target_link_libraries(broadcaster PUBLIC glfw3.lib ${OpenCV_LIBS} ${CMAKE_DL_LIBS} cpr::cpr)
 endif()
 
 if(CMAKE_HOST_SYSTEM MATCHES Linux)
-   target_link_libraries(broadcaster PUBLIC glfw ${OpenCV_LIBS} ${CMAKE_DL_LIBS})
+   target_link_libraries(broadcaster PUBLIC glfw ${OpenCV_LIBS} ${CMAKE_DL_LIBS} cpr::cpr)
 endif()
-
-
-
 
 add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory

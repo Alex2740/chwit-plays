@@ -17,6 +17,8 @@ namespace Graphics
 	class Camera
 	{
 	public:
+		int ID;
+
 		// Stores the main vectors of the camera
 		glm::vec3 Position;
 		glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -36,11 +38,13 @@ namespace Graphics
 		Camera();
 
 		// Camera constructor to set up initial values
-		Camera(int width, int height, glm::vec3 position);
+		Camera(int id, int width, int height, glm::vec3 position);
 
 		// Updates and exports the camera matrix to the Vertex Shader
 		void Matrix(float FOVdeg, float nearPlane, float farPlane, Shader& shader, const char* uniform);
 		// Handles camera inputs
 		bool Inputs(GLFWwindow* window);
+
+		void SetPositionOrientation(glm::vec3 Position, glm::vec3 Orientation);
 	};
 };

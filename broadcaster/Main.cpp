@@ -15,6 +15,8 @@
 
 #include "capture/capturer.h"
 
+#include "api/api.h"
+
 
 const float MaxVideoLength = 1;
 
@@ -26,7 +28,7 @@ int MaxFrame = MaxVideoLength * 60 * Fps;
 bool VideoHasFinish = false;
 
 const std::string cameraId;
-std::list<Object*> Objects = std::list<Object*>();
+std::array<Object*, 10> Objects = std::array<Object*, 10>();
 
 GLFWwindow* Window;
 Graphics::Shader* ShaderProgram;
@@ -55,6 +57,7 @@ public:
 
 		for (auto Object : Objects)
 		{
+			if (Object == nullptr) continue;
 			Renderer->RenderObject(Object, *ShaderProgram);
 		}
 	}
@@ -115,24 +118,26 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	// Create Object from db and bind texture
-	Cube MyCube1 = Cube(0, 0, 0, 0, 0, 0, 1, 1, 1);
-	Objects.push_back(&MyCube1);
+	Cube MyCube1 = Cube(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Objects[0] = &MyCube1;
 	Renderer->BindTexture(&MyCube1, &brickTex);
 
-	Cube MyCube2 = Cube(0, -1, 0, 0, 0, 0, 3, 1, 1);
-	Objects.push_back(&MyCube2);
+	Cube MyCube2 = Cube(glm::vec3(0, -1, 0), glm::vec3(0, 0, 0), glm::vec3(3, 1, 1));
+	Objects[1] = & MyCube2;
 	Renderer->BindTexture(&MyCube2, &brickTex);
 
 	// Creates camera object
-	Camera = new Graphics::Camera(Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));
+	Camera = new Graphics::Camera(0, Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));
 
 	Capturer = new MyCapturer(Height, Width, Fps, MaxFrame);
 
 	// Main while loop
 	while (!VideoHasFinish && !glfwWindowShouldClose(Window))
 	{
+		API::Api::UpdateObjects(Camera, Objects, Renderer, &brickTex);
+
 		// Handles camera inputs
-		VideoHasFinish = Camera->Inputs(Window);
+		//VideoHasFinish = Camera->Inputs(Window);
 		
 		Capturer->CaptureFrame();
 		//Capturer->DrawFrame();

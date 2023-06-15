@@ -8,9 +8,9 @@
 class Cube : public Object
 {
 public:
-	Cube(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ, float HalfSizeX, float HalfSizeY, float HalfSizeZ);
+	Cube(glm::vec3 Position, glm::vec3 Orientation, glm::vec3 HalfSize);
 
-	float HalfSizeX, HalfSizeY, HalfSizeZ;
+	glm::vec3 HalfSize;
 
 	ObjectType GetType() override;
 };

@@ -1,8 +1,8 @@
 #include "objects/cube.h"
 
 
-Cube::Cube(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ, float HalfSizeX, float HalfSizeY, float HalfSizeZ) :
-    Object(X, Y, Z, RotationX, RotationY, RotationZ), HalfSizeX(HalfSizeX), HalfSizeY(HalfSizeY), HalfSizeZ(HalfSizeZ)
+Cube::Cube(glm::vec3 Position, glm::vec3 Orientation, glm::vec3 HalfSize) :
+    Object(Position, Orientation), HalfSize(HalfSize)
 {
 }
 

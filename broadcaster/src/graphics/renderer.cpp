@@ -55,9 +55,9 @@ void Graphics::Renderer::RenderCube(Cube* Cube, Shader ShaderProgram)
 	{
 		int Index = i * 8;
 
-		Vertices[Index] *= Cube->HalfSizeX;
-		Vertices[Index + 1] *= Cube->HalfSizeY;
-		Vertices[Index + 2] *= Cube->HalfSizeZ;
+		Vertices[Index] *= Cube->HalfSize.x;
+		Vertices[Index + 1] *= Cube->HalfSize.y;
+		Vertices[Index + 2] *= Cube->HalfSize.z;
 	}
 
 	// Generates Vertex Buffer Object and links it to vertices
@@ -83,9 +83,9 @@ void Graphics::Renderer::RenderCube(Cube* Cube, Shader ShaderProgram)
 	VertexArrayObject.LinkAttrib(VBO, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 	glm::mat4 Model = glm::mat4(1.0f);
-	glm::vec3 tmp(Cube->X, Cube->Y, Cube->Z);
+	glm::vec3 tmp = Cube->Position;
 	Model = glm::translate(Model, tmp);
-	glm::vec3 Rotation(Cube->RotationX, Cube->RotationY, Cube->RotationZ);
+	glm::vec3 Rotation = Cube->Orientation;
 
 	// Rotation on Z-Axis
 	Model = glm::rotate(Model, -Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f)); // PSEUDO FIX

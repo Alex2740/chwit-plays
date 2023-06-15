@@ -3,14 +3,16 @@
 
 Graphics::Camera::Camera()
 {
+	ID = -1;
 	Camera::width = 0;
 	Camera::height = 0;
 	Position = glm::vec3(0, 0, 0);
 }
 
 
-Graphics::Camera::Camera(int width, int height, glm::vec3 position)
+Graphics::Camera::Camera(int ID, int width, int height, glm::vec3 position)
 {
+	this->ID = ID;
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
@@ -124,4 +126,10 @@ bool Graphics::Camera::Inputs(GLFWwindow* window)
 	}
 
 	return WantToQuit;
+}
+
+void Graphics::Camera::SetPositionOrientation(glm::vec3 Position, glm::vec3 Orientation)
+{
+	this->Position = Position;
+	this->Orientation = Orientation;
 }

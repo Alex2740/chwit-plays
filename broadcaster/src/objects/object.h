@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/glm.hpp>
 
 enum ObjectType {
 	ObjectCube,
@@ -12,10 +13,12 @@ public:
 	static int CompterId;
 	int Id;
 
-	float X, Y, Z;
-	float RotationX, RotationY, RotationZ;
+	glm::vec3 Position;
+	glm::vec3 Orientation;
 
-	Object(float X, float Y, float Z, float RotationX, float RotationY, float RotationZ);
+	Object(glm::vec3 Position, glm::vec3 Orientation);
+
+	void SetPositionOrientation(glm::vec3 Position, glm::vec3 Orientation);
 
 	virtual ObjectType GetType() = 0;
 };
