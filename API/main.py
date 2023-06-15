@@ -111,8 +111,8 @@ def get_scene(cameraID : int):
 
     filter = {"_id": cam['_id']}
 
-    newPosition = move_camera(cam['position'], input[0])
-    newValues = {"$set": {'position': newPosition}}
+    newPosition = move_camera(cam['Position'], input[0])
+    newValues = {"$set": {'Position': newPosition}}
     cameras_collec.update_one(filter, newValues)
 
     delete_date("Inputs", (input[2] + timedelta(seconds=1)).strftime("%Y-%m-%dT%H:%M:%SZ"))

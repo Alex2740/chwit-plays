@@ -1,13 +1,22 @@
 version: '3.8'
 services:
   mongodb:
-    image: mongo:6-jammy
+    container_name: mongodb
+    image: mongo:latest
     ports:
       - '27017:27017'
     volumes:
       - dbdata:/data/db
-      - ./init-data:/docker-entrypoint-initdb.d
-      - ./init-data/data:/tmp/data
+      - ./MongoDB/init-data/01-create-db.js:/docker-entrypoint-initdb.d/01-create-db.js
+    networks:
+      - application
+
+  mongo-seed:
+    build:
+      context: MongoDB
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
     networks:
       - application
 
