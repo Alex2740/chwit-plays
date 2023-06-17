@@ -5,6 +5,7 @@ void API::Api::UpdateObjects(Graphics::Camera* Camera, std::array<Object*, 10> O
 {
     cpr::Response r = cpr::Get(cpr::Url{"http://localhost:4000/scene/0"});
     json data = json::parse(r.text);
+    std::cerr << data << std::endl;
 
     json cameraPosition = data["Cameras"][0]["Position"];
     json cameraOrientation = data["Cameras"][0]["Orientation"];
@@ -23,9 +24,9 @@ void API::Api::UpdateObjects(Graphics::Camera* Camera, std::array<Object*, 10> O
         if (Objects[i] == nullptr)
         {
             glm::vec3 halfSize = glm::vec3(jsonObject["HalfSize"]["x"], jsonObject["HalfSize"]["y"], jsonObject["HalfSize"]["z"]);
-            Cube MyCube = Cube(position, orientation, halfSize);
-            Objects[i] = &MyCube;
-            Renderer->BindTexture(&MyCube, Texture);
+            Cube* MyCube = new Cube(position, orientation, halfSize);
+            Objects[i] = MyCube;
+            Renderer->BindTexture(MyCube, Texture);
         }
         else
         {

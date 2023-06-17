@@ -17,6 +17,8 @@
 
 #include "api/api.h"
 
+#define MAX_SCENE_OBJECTS 10
+
 
 const float MaxVideoLength = -1;
 
@@ -28,7 +30,7 @@ int MaxFrame = MaxVideoLength * 60 * Fps;
 bool VideoHasFinish = false;
 
 const std::string cameraId;
-std::array<Object*, 10> Objects = std::array<Object*, 10>();
+std::array<Object*, MAX_SCENE_OBJECTS> Objects = std::array<Object*, MAX_SCENE_OBJECTS>();
 
 GLFWwindow* Window;
 Graphics::Shader* ShaderProgram;
@@ -116,6 +118,10 @@ int main()
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
+
+	Cube MyCube1 = Cube(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Objects[0] = &MyCube1;
+	Renderer->BindTexture(&MyCube1, &brickTex);
 
 	// Creates camera object
 	Camera = new Graphics::Camera(0, Width, Height, glm::vec3(0.0f, 0.0f, 5.0f));
