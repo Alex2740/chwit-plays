@@ -113,7 +113,7 @@ int main()
 	Renderer = new Graphics::Renderer();
 
 	// Create the Texture
-	Graphics::Texture brickTex("Resources/Textures/brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Graphics::Texture brickTex("resources/textures/brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	brickTex.texUnit(*ShaderProgram, "tex0", 0);
 
 	// Enables the Depth Buffer
@@ -137,7 +137,7 @@ int main()
 		//VideoHasFinish = Camera->Inputs(Window);
 		
 		Capturer->CaptureFrame();
-		//Capturer->DrawFrame();
+		Capturer->DrawFrame();
 
 		if (Capturer->HasReachMaxFrame) VideoHasFinish = true;
 
