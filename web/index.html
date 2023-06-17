@@ -12,15 +12,17 @@
     <link href="https://cdn.jsdelivr.net/npm/video.js/dist/video-js.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1 class = "horizontal-center">Le stream du turfu ma gueule</h1>
     <br><br>
     <div class="container">
-        <div class="center">
+        <div class = "horizontal-center">
+          <div class = "vertical-center">
+            <h1>Le stream du turfu ma gueule</h1><br>
             <input type="text" placeholder="Warzazat ?" id="in"><br><br>
             <button type="button" class="btn btn-primary" onclick="getValue();">Je s'appelle bouton</button>
+          </div>
         </div>
     </div>
-    <video id="hlsVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360"></video>
+    <!--<video id="hlsVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360"></video>
     <br><br>
     <script src="https://cdn.jsdelivr.net/npm/video.js/dist/video.min.js"></script>
     <script>
@@ -32,6 +34,6 @@
         src: videoUrl,
         type: 'application/x-mpegURL'
       });
-    </script>
+    </script>-->
 </body>
 </html>
