@@ -23,8 +23,20 @@ usr = os.environ.get("influx_usr")
 pwd = os.environ.get("influx_pwd")
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_headers=["*"],
+)
+
 client = InfluxDBClient(url=url,username=usr, password=pwd,ssl=True,verify_ssl=True,org=org)
 write_api = client.write_api(write_options=SYNCHRONOUS)
+
+
 
 #Connexion à la base MongoDB
 
