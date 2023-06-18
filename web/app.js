@@ -1,7 +1,8 @@
 
-function getValue() {
+function getValue(value) {
+    print("ok");
     // Sélectionner l'élément input et récupérer sa valeur
-    var input = document.getElementById("in").value;
+    var input = value;
 
     let url = "http://10.59.2.240:4000/inputs/0/";
     url = url.concat(input);

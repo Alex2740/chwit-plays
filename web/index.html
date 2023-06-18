@@ -1,33 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css" />
-    <script src="app.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/video.js/dist/video-js.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/video.js/dist/video.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetroBoy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/video.js/dist/video-js.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/video.js/dist/video.min.js"></script>
+  <link rel="stylesheet" href="gameboy.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <br><br>
-    <div class="container">
-        <div class = "horizontal-center">
-          <div class = "vertical-center">
-            <h1>Le stream du turfu ma gueule</h1><br>
-            <input type="text" placeholder="Warzazat ?" id="in"><br><br>
-            <button type="button" class="btn btn-primary" onclick="getValue();">Je s'appelle bouton</button>
+  <div class="navbar">
+    <div class="logo1">
+      <img src="logo.png" alt="Logo">
+    </div>
+  </div>
+  <div class="space">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="gameboy">
+      <div class="front-plate">
+        <div class="front-plate-head">
+          <div class="vertical-stripe"></div>
+          <div class="vertical-stripe"></div>
+          <div class="vertical-stripe"></div>
+
+          <div class="vertical-gouge vertical-gouge-1"></div>
+          <div class="vertical-gouge vertical-gouge-2"></div>
+
+          <div class="on-off">
+            <div class="spike spike-left"><div></div></div>
+            <div class="spike spike-right"><div></div></div>
+            <span>
+              OFF
+              <i></i>
+              ON
+            </span>
           </div>
         </div>
-    </div>
-      <video id="hlsVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
-        <source src="stream.m3u8" type="application/x-mpegURL">
-      </video>
 
-  
+        <div class="screen-container">
+          <div class="screen-headline">
+            <span>DOT MATRIX WITH STEREO SOUND</span>
+          </div>
+
+          <div class="battery-light">
+            <span>BATTERY</span>
+          </div>
+
+          <div class="screen">
+            <video id="live-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+              <source src="stream.m3u8" type="application/x-mpegURL">
+            </video>
+          </div>
+        </div>
+
+        <div class="logo"></div>
+
+        <div id="controller">
+
+          <div class="buttons-a-b">
+            <div class="button-b button-key-j" id="controller_b" onclick="getValue(5);"></div>
+
+            <div class="button-a button-key-k" id="controller_a" onclick="getValue(4);"></div>
+          </div>
+
+          <div class="start button-key-m" id="controller_start"><div></div></div>
+
+          <div class="select button-key-n" id="controller_select"><div></div></div>
+
+          <div class="cross-container">
+            <div class="spike"><div></div></div>
+            <div class="spike"><div></div></div>
+            <div class="spike"><div></div></div>
+            <div class="spike"><div></div></div>
+
+            <div class="cross" id="controller_dpad">
+              <div class="top-down">
+                <div class="button-top button-key-w" id="controller_up" onclick="getValue(2);">
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                </div>
+                <div class="button-bottom button-key-s" id="controller_down" onclick="getValue(0);">
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                </div>
+              </div>
+
+              <div class="left-right">
+                <div class="button-left button-key-a" id="controller_left" onclick="getValue(3);">
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                </div>
+                <div class="button-right button-key-d" id="controller_right" onclick="getValue(1);">
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                  <div class="button-stripe"></div>
+                </div>
+              </div>
+              <div class="cross-middle-bumb"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="speaker">
+          <div><div class="speaker-inner-shadow"></div></div>
+          <div><div class="speaker-inner-shadow"></div></div>
+          <div><div class="speaker-inner-shadow"></div></div>
+          <div><div class="speaker-inner-shadow"></div></div>
+          <div><div class="speaker-inner-shadow"></div></div>
+          <div><div class="speaker-inner-shadow"></div></div>
+        </div>
+
+        <div class="phones" id="volume-switch">
+          <div class="vertical-stripe"></div>
+          <div class="vertical-stripe"></div>
+          <div class="vertical-stripe"></div>
+          <i></i>
+          <span>PHONES</span>
+        </div>
+
+      </div>
+
+      <div class="power-button" id="power"><div id="power-color"></div></div>
+    </div>
+  </div>
+
+  <audio loop id="background-music">
+    <source src="audio.mp3" type="audio/mp3">
+  </audio>
+
   <script>
     const videoElement = document.getElementById('hlsVideo');
     const videoUrl = 'stream.m3u8'; // Remplacez par l'URL de votre fichier de playlist HLS
@@ -38,5 +150,42 @@
       }
     });
   </script>
+
+  <script>
+    const video = document.getElementById('live-video');
+    const startButton = document.getElementById('controller_start');
+
+
+    startButton.addEventListener('click', function() {
+      video.play();
+    });
+  </script>
+
+  <script>
+    const powerButton = document.getElementById('power');
+    const screen = document.getElementById('live-video');
+    const powerColor = document.getElementById('power-color');
+    const audio = document.getElementById('background-music');
+
+    const on = false;
+
+    screen.style.visibility = 'hidden';
+
+    powerButton.addEventListener('click', function() {
+      if (screen.style.visibility == 'hidden'){
+        powerButton.style.left = '125px';
+        screen.style.visibility = 'visible';
+        powerColor.style.background = 'linear-gradient(to bottom, #c6c2be 0%, green 100%)';
+        audio.play();
+      }
+      else{
+        powerButton.style.left = '68px';
+        screen.style.visibility = 'hidden';
+        powerColor.style.background = 'linear-gradient(to bottom, #c6c2be 0%, #9d9b96 100%)';
+        audio.pause();
+      }
+    });
+  </script>
+
 </body>
 </html>
