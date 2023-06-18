@@ -23,17 +23,19 @@
           </div>
         </div>
     </div>
-      <video id="hlsVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360"></video>
+      <video id="hlsVideo" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+        <source src="stream.m3u8" type="application/x-mpegURL">
+      </video>
 
   
   <script>
     const videoElement = document.getElementById('hlsVideo');
     const videoUrl = 'stream.m3u8'; // Remplacez par l'URL de votre fichier de playlist HLS
 
-    const player = videojs(videoElement);
-    player.src({
-      src: videoUrl,
-      type: 'application/x-mpegURL'
+    const player = videojs(videoElement, {
+      segments: {
+        uri: 'segment%d.ts'
+      }
     });
   </script>
 </body>

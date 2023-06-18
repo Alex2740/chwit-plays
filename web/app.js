@@ -3,7 +3,7 @@ function getValue() {
     // Sélectionner l'élément input et récupérer sa valeur
     var input = document.getElementById("in").value;
 
-    let url = "http://api:4000/inputs/0/";
+    let url = "http://10.59.2.240:4000/inputs/0/";
     url = url.concat(input);
 
     const xhr = new XMLHttpRequest();
