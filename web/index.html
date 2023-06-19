@@ -63,9 +63,9 @@
         <div id="controller">
 
           <div class="buttons-a-b">
-            <div class="button-b button-key-j" id="controller_b" onclick="getValue(5);"></div>
+            <div class="button-b button-key-j" id="controller_b" onclick="getValue(5)"></div>
 
-            <div class="button-a button-key-k" id="controller_a" onclick="getValue(4);"></div>
+            <div class="button-a button-key-k" id="controller_a" onclick="getValue(4)"></div>
           </div>
 
           <div class="start button-key-m" id="controller_start"><div></div></div>
@@ -80,12 +80,12 @@
 
             <div class="cross" id="controller_dpad">
               <div class="top-down">
-                <div class="button-top button-key-w" id="controller_up" onclick="getValue(2);">
+                <div class="button-top button-key-w" id="controller_up" onclick="getValue(2)">
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                 </div>
-                <div class="button-bottom button-key-s" id="controller_down" onclick="getValue(0);">
+                <div class="button-bottom button-key-s" id="controller_down" onclick="getValue(0)">
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
@@ -93,12 +93,12 @@
               </div>
 
               <div class="left-right">
-                <div class="button-left button-key-a" id="controller_left" onclick="getValue(3);">
+                <div class="button-left button-key-a" id="controller_left" onclick="getValue(3)">
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                 </div>
-                <div class="button-right button-key-d" id="controller_right" onclick="getValue(1);">
+                <div class="button-right button-key-d" id="controller_right" onclick="getValue(1)">
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
                   <div class="button-stripe"></div>
@@ -139,16 +139,6 @@
 
 
   <script>
-    const video = document.getElementById('live-video');
-    const startButton = document.getElementById('controller_start');
-
-
-    startButton.addEventListener('click', function() {
-      video.play();
-    });
-  </script>
-
-  <script>
     const powerButton = document.getElementById('power');
     const screen = document.getElementById('live-video');
     const powerColor = document.getElementById('power-color');
@@ -184,12 +174,14 @@
     document.addEventListener('DOMContentLoaded', function() {
 
       // Utiliser setInterval pour mettre à jour périodiquement l'image
-      var updateInterval = setInterval(updateImage, 1000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
+      var updateInterval = setInterval(updateImage, 10000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
 
       // Facultatif : Arrêter la mise à jour de l'image lorsque l'utilisateur quitte la page
       window.addEventListener('beforeunload', function() {
         clearInterval(updateInterval);
       });
+
+      window.print = ()=>{}
     });
   </script>
 
