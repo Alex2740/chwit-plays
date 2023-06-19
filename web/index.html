@@ -54,8 +54,7 @@
           </div>
 
           <div class="screen">
-            <video id="live-video" src="localhost:3000" controls preload="auto" width="640" height="360">
-            </video>
+            <img id="live-video" autoplay controls>
           </div>
         </div>
 
@@ -172,6 +171,20 @@
         powerColor.style.background = 'linear-gradient(to bottom, #c6c2be 0%, #9d9b96 100%)';
         audio.pause();
       }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var imageElement = document.getElementById('live-video');
+
+      // Utiliser setInterval pour mettre à jour périodiquement l'image
+      var updateInterval = setInterval(imageElement.src = 'logo.png', 1000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
+
+      // Facultatif : Arrêter la mise à jour de l'image lorsque l'utilisateur quitte la page
+      window.addEventListener('beforeunload', function() {
+        clearInterval(updateInterval);
+      });
     });
   </script>
 
