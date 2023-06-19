@@ -175,11 +175,16 @@
   </script>
 
   <script>
+
+    const updateImage = () => {
+      var imageElement = document.getElementById('live-video')
+      imageElement.src = 'image.png?' + new Date().getTime()
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      var imageElement = document.getElementById('live-video');
 
       // Utiliser setInterval pour mettre à jour périodiquement l'image
-      var updateInterval = setInterval(imageElement.src = 'logo.png', 1000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
+      var updateInterval = setInterval(updateImage, 1000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
 
       // Facultatif : Arrêter la mise à jour de l'image lorsque l'utilisateur quitte la page
       window.addEventListener('beforeunload', function() {
