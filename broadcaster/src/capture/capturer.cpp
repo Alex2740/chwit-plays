@@ -78,6 +78,7 @@ void Capture::Capturer::CaptureFrame()
 
 	// �crire l'image dans la vid�o
 	//Video.write(image);
+	cv::imwrite("../../web/image.png", image);
 
 	//output.write(reinterpret_cast<char*>(FrameBuffer));
 

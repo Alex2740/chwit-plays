@@ -174,14 +174,12 @@
     document.addEventListener('DOMContentLoaded', function() {
 
       // Utiliser setInterval pour mettre à jour périodiquement l'image
-      var updateInterval = setInterval(updateImage, 10000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
+      var updateInterval = setInterval(updateImage, 1000); // Mettre à jour toutes les secondes, ajustez selon vos besoins
 
       // Facultatif : Arrêter la mise à jour de l'image lorsque l'utilisateur quitte la page
       window.addEventListener('beforeunload', function() {
         clearInterval(updateInterval);
       });
-
-      window.print = ()=>{}
     });
   </script>
 

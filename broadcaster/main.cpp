@@ -4,6 +4,7 @@
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
 #include <list>
+#include <unistd.h>
 
 #include "graphics/texture.h"
 #include "graphics/shaderClass.h"
@@ -46,7 +47,7 @@ public:
 	void DrawFrame() override
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.17f, 0.13f, 0.07f, 1.0f);
 
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -146,6 +147,8 @@ int main()
 
 		// Take care of all GLFW events
 		glfwPollEvents();
+
+		sleep(1);
 	}
 
 	// Delete all the objects we've created

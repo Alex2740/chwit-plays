@@ -1,6 +1,5 @@
 
 function getValue(value) {
-    print("ok");
     // Sélectionner l'élément input et récupérer sa valeur
     var input = value;
 
